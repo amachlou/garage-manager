@@ -18,6 +18,7 @@ public class Accessoire extends BaseEntity {
     private String price;
     private String type;
 
+//  Map accessoire to vehicule
     @ManyToOne
     @JoinColumn(name="vehicule_id", nullable=false)
     private Vehicule vehicule;

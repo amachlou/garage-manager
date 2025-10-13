@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.Year;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -22,11 +23,14 @@ public class Vehicule extends BaseEntity {
     @Column(name = "fuel_type")
     private String fuelType;
 
+//  Map vehicule to garage
     @ManyToOne
     @JoinColumn(name="garage_id", nullable=false)
     private Garage garage;
 
+//  Map vehicule accessoire
     @OneToMany(mappedBy="vehicule")
-    private List<Vehicule> vehicules;
+    private Set<Accessoire> accessoires;
+
 
 }

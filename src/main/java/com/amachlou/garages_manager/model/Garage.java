@@ -1,6 +1,8 @@
 package com.amachlou.garages_manager.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +13,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "garages")
+@Entity(name = "GARAGES")
 public class Garage extends BaseEntity {
 
     // TODO: Implement openning hours
@@ -22,6 +24,8 @@ public class Garage extends BaseEntity {
     private String ville;
 
 
+//  Map garage to vehicule
     @OneToMany(mappedBy="garage")
     private Set<Vehicule> vehicules;
+
 }
