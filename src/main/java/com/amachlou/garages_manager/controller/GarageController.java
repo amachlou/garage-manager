@@ -2,6 +2,7 @@ package com.amachlou.garages_manager.controller;
 
 import com.amachlou.garages_manager.model.Garage;
 import com.amachlou.garages_manager.repository.GarageRepository;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,12 +12,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Book;
-import java.util.List;
-
 @RestController
 @RequestMapping("/garages")
 @AllArgsConstructor
+@Tag(name = "Garage", description = "Operations on Garages")
 public class GarageController {
 //    Création, modification et suppression de garages.
 //    o Récupération d’un garage spécifique (par ID).
@@ -76,12 +75,5 @@ public class GarageController {
         garageRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
-    // SEARCH
-//    @GetMapping("/search")
-//    public ResponseEntity<List<GarageDocument>> searchGarages(@RequestParam(name = "q") String term) {
-//        List<GarageDocument> results = GarageSearchRepository.findByNameContainingOrDescriptionContaining(term, term);
-//        return ResponseEntity.ok(results);
-//    }
 
 }
