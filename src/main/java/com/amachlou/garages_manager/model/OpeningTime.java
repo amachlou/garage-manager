@@ -1,34 +1,23 @@
 package com.amachlou.garages_manager.model;
 
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalTime;
 import java.util.Objects;
 
 @Embeddable
+@Getter @Setter
+@NoArgsConstructor
 public class OpeningTime {
+
     private LocalTime startTime;
     private LocalTime endTime;
 
-    public OpeningTime() {}
-
     public OpeningTime(LocalTime startTime, LocalTime endTime) {
         this.startTime = startTime;
-        this.endTime = endTime;
-    }
-
-    public LocalTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public LocalTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 

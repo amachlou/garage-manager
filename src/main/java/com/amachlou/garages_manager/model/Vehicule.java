@@ -14,8 +14,11 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "VEHICULES")
-public class Vehicule extends BaseEntity implements Serializable {
+public class Vehicule implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String model;
     private String type;
     private String brand;
@@ -30,7 +33,7 @@ public class Vehicule extends BaseEntity implements Serializable {
     private Garage garage;
 
 //  Map vehicule accessoire
-    @OneToMany(mappedBy="vehicule")
+    @OneToMany(mappedBy="vehicule", fetch=FetchType.LAZY)
     private Set<Accessoire> accessoires;
 
 

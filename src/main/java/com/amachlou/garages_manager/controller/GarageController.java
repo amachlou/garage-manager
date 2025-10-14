@@ -10,7 +10,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
+
+import javax.swing.text.html.Option;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/garages")
@@ -29,6 +34,7 @@ public class GarageController {
     }
 
     @GetMapping
+    @ResponseBody
     public Page<Garage> getAllGarages(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
@@ -36,12 +42,18 @@ public class GarageController {
 
         // Parse sort params
         String sortField = sort[0];
-        String sortDirection = sort.length > 1 ? sort[1] : "desc";
+        String sortDirection = sort.length > 1 ? sort[1] : "asc";
 
         Sort.Direction direction = sortDirection.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortField));
 
         return garageRepository.findAll(pageable);
+    }
+
+    @GetMapping("/all")
+    public List<Garage> getAll() {
+        List<Garage> garages = garageRepository.findAll();
+        return garages;
     }
 
     @GetMapping("/{id}")
