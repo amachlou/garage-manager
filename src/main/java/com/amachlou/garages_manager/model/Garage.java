@@ -8,13 +8,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "GARAGES")
-public class Garage extends BaseEntity {
+public class Garage extends BaseEntity implements Serializable {
 
     // TODO: Implement openning hours
     private String name;
