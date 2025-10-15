@@ -2,6 +2,7 @@ package com.amachlou.garages_manager.controller;
 
 import com.amachlou.garages_manager.model.Garage;
 import com.amachlou.garages_manager.repository.GarageRepository;
+import com.amachlou.garages_manager.service.GarageService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -10,12 +11,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/garages")
@@ -26,10 +24,11 @@ public class GarageController {
 //    o Récupération d’un garage spécifique (par ID).
 //    o Liste paginée de tous les garages, avec possibilité de tri (par nom,ville, etc.).
     private final GarageRepository garageRepository;
+    private final GarageService garageService;
 
     @PostMapping
     public ResponseEntity<Garage> createGarage(@RequestBody Garage garage) {
-        Garage saved = garageRepository.save(garage);
+        Garage saved = garageService.save(garage);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
