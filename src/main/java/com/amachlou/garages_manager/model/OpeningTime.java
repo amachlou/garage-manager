@@ -1,20 +1,34 @@
 package com.amachlou.garages_manager.model;
 
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.Objects;
 
-@Embeddable
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
-public class OpeningTime {
+@AllArgsConstructor
+@Entity(name = "opening_times")
+public class OpeningTime implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private LocalTime startTime;
     private LocalTime endTime;
+
+    //    Map Opening time to opening hour
+    @ManyToOne
+    @JoinColumn(name = "opening_hour_id")
+    private OpeningHour openingHour;
 
     public OpeningTime(LocalTime startTime, LocalTime endTime) {
         this.startTime = startTime;

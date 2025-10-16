@@ -1,6 +1,7 @@
 package com.amachlou.garages_manager.controller;
 
 import com.amachlou.garages_manager.model.Garage;
+import com.amachlou.garages_manager.model.OpeningTime;
 import com.amachlou.garages_manager.repository.GarageRepository;
 import com.amachlou.garages_manager.service.GarageService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -13,7 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.DayOfWeek;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/garages")
@@ -49,10 +52,10 @@ public class GarageController {
         return garageRepository.findAll(pageable);
     }
 
-    @GetMapping("/all")
-    public List<Garage> getAll() {
-        List<Garage> garages = garageRepository.findAll();
-        return garages;
+    @GetMapping("/{id}/openinghours")
+    public Map<DayOfWeek, List<OpeningTime>> getGarageOpeningHours(@PathVariable Long id) {
+        Map<DayOfWeek, List<OpeningTime>> openingHours = garageService.getGarageOpeningHours(id);
+        return openingHours;
     }
 
     @GetMapping("/{id}")

@@ -1,11 +1,10 @@
 package com.amachlou.garages_manager.utils;
 
-import com.amachlou.garages_manager.model.Accessoire;
-import com.amachlou.garages_manager.model.Garage;
-import com.amachlou.garages_manager.model.OpeningTime;
-import com.amachlou.garages_manager.model.Vehicule;
+import com.amachlou.garages_manager.model.*;
 import com.amachlou.garages_manager.repository.AccessoireRepository;
 import com.amachlou.garages_manager.repository.GarageRepository;
+import com.amachlou.garages_manager.repository.OpeningHourRepository;
+import com.amachlou.garages_manager.repository.OpeningTimeRepository;
 import com.amachlou.garages_manager.repository.VehiculeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -22,25 +21,29 @@ import java.util.*;
 public class DataInitializer {
 
 	@Bean
-	public CommandLineRunner commandLineRunner(GarageRepository garageRepository, VehiculeRepository vehiculeRepository, AccessoireRepository accessoireRepository){
+	public CommandLineRunner commandLineRunner(GarageRepository garageRepository,
+											   VehiculeRepository vehiculeRepository,
+											   AccessoireRepository accessoireRepository,
+											   OpeningHourRepository openingHourRepository,
+											   OpeningTimeRepository openingTimeRepository){
 		return args -> {
 
 //			Semaine Lundi -> Vendredi
-			List<OpeningTime> ouvertuesSemaine = Arrays.asList(
-					new OpeningTime(LocalTime.of(9, 0), LocalTime.of(12, 0)),
-					new OpeningTime(LocalTime.of(14, 0), LocalTime.of(18, 0))
-			);
-			// Samedi
-			List<OpeningTime> samedi = Collections.singletonList(
-					new OpeningTime(LocalTime.of(10, 0), LocalTime.of(16, 0))
-			);
-			Map<DayOfWeek, List<OpeningTime>> mapHoraire = new HashMap<>();
-			mapHoraire.put(DayOfWeek.MONDAY, ouvertuesSemaine);
-			mapHoraire.put(DayOfWeek.TUESDAY, ouvertuesSemaine);
-			mapHoraire.put(DayOfWeek.WEDNESDAY, ouvertuesSemaine);
-			mapHoraire.put(DayOfWeek.THURSDAY, ouvertuesSemaine);
-			mapHoraire.put(DayOfWeek.FRIDAY, ouvertuesSemaine);
-			mapHoraire.put(DayOfWeek.SATURDAY, samedi);
+//			List<OpeningTime> ouvertuesSemaine = Arrays.asList(
+//					new OpeningTime(LocalTime.of(9, 0), LocalTime.of(18, 0)),
+//					new OpeningTime(LocalTime.of(14, 0), LocalTime.of(18, 0))
+//			);
+//			 Samedi
+//			List<OpeningTime> samedi = Collections.singletonList(
+//					new OpeningTime(LocalTime.of(9, 0), LocalTime.of(13, 0))
+//			);
+//			Map<DayOfWeek, List<OpeningTime>> mapHoraire = new HashMap<>();
+//			mapHoraire.put(DayOfWeek.MONDAY, ouvertuesSemaine);
+//			mapHoraire.put(DayOfWeek.TUESDAY, ouvertuesSemaine);
+//			mapHoraire.put(DayOfWeek.WEDNESDAY, ouvertuesSemaine);
+//			mapHoraire.put(DayOfWeek.THURSDAY, ouvertuesSemaine);
+//			mapHoraire.put(DayOfWeek.FRIDAY, ouvertuesSemaine);
+//			mapHoraire.put(DayOfWeek.SATURDAY, samedi);
 
 			Garage g1 = garageRepository.save(new Garage(null,"DAR BOUAZZA", "Ru2 01", "12334455", "test@email.com","Casablanca", null, null));
 			Garage g2 = garageRepository.save(new Garage(null,"Inzegan", "Bds Muqawama", "7009955", "dev@email.com","Agadir",null,null));
@@ -53,6 +56,22 @@ public class DataInitializer {
 			Accessoire a1 = accessoireRepository.save(new Accessoire(null,"Pignon", "15cm P", 76.8, "Originl", v1));
 			Accessoire a2 = accessoireRepository.save(new Accessoire(null,"Cable", "15cm P", 6.8, "CAT 2", v2));
 			Accessoire a3 = accessoireRepository.save(new Accessoire(null,"Cle", "15cm P", 00.8, "Super", v3));
+
+			OpeningHour oh1 = openingHourRepository.save(new OpeningHour(null, g1, DayOfWeek.MONDAY,null));
+			OpeningHour oh2 = openingHourRepository.save(new OpeningHour(null, g1, DayOfWeek.TUESDAY,null));
+			OpeningHour oh3 = openingHourRepository.save(new OpeningHour(null, g1, DayOfWeek.WEDNESDAY,null));
+			OpeningHour oh4 = openingHourRepository.save(new OpeningHour(null, g1, DayOfWeek.THURSDAY,null));
+			OpeningHour oh5 = openingHourRepository.save(new OpeningHour(null, g1, DayOfWeek.FRIDAY,null));
+			OpeningHour oh6 = openingHourRepository.save(new OpeningHour(null, g1, DayOfWeek.SATURDAY,null));
+
+			Arrays.asList(oh1,oh2,oh3,oh4,oh5).forEach( oh ->
+					openingTimeRepository.save(new OpeningTime(null,LocalTime.of(9, 0),LocalTime.of(18, 0),oh))
+			);
+			openingTimeRepository.save(new OpeningTime(null,LocalTime.of(9, 0),LocalTime.of(18, 0),oh6));
+
+			OpeningTime semaine = new OpeningTime(null,LocalTime.of(9, 0),LocalTime.of(18, 0),oh1);
+			OpeningTime samedi = new OpeningTime(null, LocalTime.of(9, 0), LocalTime.of(18, 0), oh1);
+
 		};
 	}
 
