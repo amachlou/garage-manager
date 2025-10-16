@@ -28,23 +28,6 @@ public class DataInitializer {
 											   OpeningTimeRepository openingTimeRepository){
 		return args -> {
 
-//			Semaine Lundi -> Vendredi
-//			List<OpeningTime> ouvertuesSemaine = Arrays.asList(
-//					new OpeningTime(LocalTime.of(9, 0), LocalTime.of(18, 0)),
-//					new OpeningTime(LocalTime.of(14, 0), LocalTime.of(18, 0))
-//			);
-//			 Samedi
-//			List<OpeningTime> samedi = Collections.singletonList(
-//					new OpeningTime(LocalTime.of(9, 0), LocalTime.of(13, 0))
-//			);
-//			Map<DayOfWeek, List<OpeningTime>> mapHoraire = new HashMap<>();
-//			mapHoraire.put(DayOfWeek.MONDAY, ouvertuesSemaine);
-//			mapHoraire.put(DayOfWeek.TUESDAY, ouvertuesSemaine);
-//			mapHoraire.put(DayOfWeek.WEDNESDAY, ouvertuesSemaine);
-//			mapHoraire.put(DayOfWeek.THURSDAY, ouvertuesSemaine);
-//			mapHoraire.put(DayOfWeek.FRIDAY, ouvertuesSemaine);
-//			mapHoraire.put(DayOfWeek.SATURDAY, samedi);
-
 			Garage g1 = garageRepository.save(new Garage(null,"DAR BOUAZZA", "Ru2 01", "12334455", "test@email.com","Casablanca", null, null));
 			Garage g2 = garageRepository.save(new Garage(null,"Inzegan", "Bds Muqawama", "7009955", "dev@email.com","Agadir",null,null));
 			Garage g3 = garageRepository.save(new Garage(null,"Rabat", "Hay Riyad", "+092334455", "prod@email.com","Tanger",null,null));
