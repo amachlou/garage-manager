@@ -17,7 +17,6 @@ import java.util.Set;
 @Entity(name = "GARAGES")
 public class Garage implements Serializable {
 
-    // TODO: Implement openning hours
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

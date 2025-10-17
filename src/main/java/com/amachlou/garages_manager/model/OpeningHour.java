@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
 )
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter
-public class OpeningHour {
+public class OpeningHour implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

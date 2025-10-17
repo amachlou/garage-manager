@@ -8,6 +8,6 @@ import java.util.Map;
 
 public interface OpeningHourService {
 
-    public Map<DayOfWeek, List<OpeningTime>> getOpeningHours(Long garageId);
+    Map<DayOfWeek, List<OpeningTime>> getOpeningHours(Long garageId);
 
 }

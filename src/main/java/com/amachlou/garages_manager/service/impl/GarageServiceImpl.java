@@ -16,11 +16,11 @@ import java.util.Map;
 @Service
 public class GarageServiceImpl implements GarageService {
 
-    private GarageRepository garageRepository;
-    private OpeningHourService openingHourService;
+    private final GarageRepository garageRepository;
+    private final OpeningHourService openingHourService;
 
     @Value("${max.vehicule.per.garage}")
-    private int MAX_VEHICULE_PER_GARAGE;
+    private int garageMaxCapacity;
 
     public GarageServiceImpl(GarageRepository garageRepository, OpeningHourService openingHourService) {
         this.garageRepository = garageRepository;
@@ -30,7 +30,7 @@ public class GarageServiceImpl implements GarageService {
     @Override
     public Garage save(Garage garage){
         long count = garageRepository.count();
-        if(count >= MAX_VEHICULE_PER_GARAGE ){
+        if(count >= garageMaxCapacity){
             throw new GarageOutOfPlacesException("Toutes les places du garage sont occupées.");
         }else{
             return garageRepository.save(garage);
