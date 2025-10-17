@@ -1,15 +1,12 @@
-package com.amachlou.garages_manager.repository;
+package com.amachlou.garages_manager.service;
 
 import com.amachlou.garages_manager.model.Vehicule;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-public interface VehiculeRepository extends JpaRepository<Vehicule, Long> {
+public interface VehiculeService {
 
     Page<Vehicule> findByModel(String model, Pageable pageable);
     List<Vehicule> findByGarageId(Long garageId);

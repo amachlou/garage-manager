@@ -1,8 +1,9 @@
-package com.amachlou.garages_manager.service;
+package com.amachlou.garages_manager.service.impl;
 
 import com.amachlou.garages_manager.model.OpeningHour;
 import com.amachlou.garages_manager.model.OpeningTime;
 import com.amachlou.garages_manager.repository.OpeningHourRepository;
+import com.amachlou.garages_manager.service.OpeningHourService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

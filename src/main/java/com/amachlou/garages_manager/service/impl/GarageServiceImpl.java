@@ -1,9 +1,11 @@
-package com.amachlou.garages_manager.service;
+package com.amachlou.garages_manager.service.impl;
 
 import com.amachlou.garages_manager.exception.GarageOutOfPlacesException;
 import com.amachlou.garages_manager.model.Garage;
 import com.amachlou.garages_manager.model.OpeningTime;
 import com.amachlou.garages_manager.repository.GarageRepository;
+import com.amachlou.garages_manager.service.GarageService;
+import com.amachlou.garages_manager.service.OpeningHourService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
