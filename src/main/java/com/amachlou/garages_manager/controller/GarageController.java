@@ -2,8 +2,10 @@ package com.amachlou.garages_manager.controller;
 
 import com.amachlou.garages_manager.model.Garage;
 import com.amachlou.garages_manager.model.OpeningTime;
+import com.amachlou.garages_manager.model.Vehicule;
 import com.amachlou.garages_manager.repository.GarageRepository;
 import com.amachlou.garages_manager.service.GarageService;
+import com.amachlou.garages_manager.service.VehiculeService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -28,6 +30,7 @@ public class GarageController {
 //    o Liste paginée de tous les garages, avec possibilité de tri (par nom,ville, etc.).
     private final GarageRepository garageRepository;
     private final GarageService garageService;
+    private final VehiculeService vehiculeService;
 
     @PostMapping
     public ResponseEntity<Garage> createGarage(@RequestBody Garage garage) {
@@ -36,7 +39,6 @@ public class GarageController {
     }
 
     @GetMapping
-    @ResponseBody
     public Page<Garage> getAllGarages(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
@@ -52,10 +54,14 @@ public class GarageController {
         return garageRepository.findAll(pageable);
     }
 
-    @GetMapping("/{id}/openinghours")
+    @GetMapping("/{id}/vehicules")
+    public List<Vehicule> getAllVehiculePerGarage(@PathVariable Long id) {
+        return vehiculeService.findByGarageId(id);
+    }
+
+    @GetMapping("/{id}/hours")
     public Map<DayOfWeek, List<OpeningTime>> getGarageOpeningHours(@PathVariable Long id) {
-        Map<DayOfWeek, List<OpeningTime>> openingHours = garageService.getGarageOpeningHours(id);
-        return openingHours;
+        return garageService.getGarageOpeningHours(id);
     }
 
     @GetMapping("/{id}")
