@@ -1,5 +1,7 @@
 package com.amachlou.garages_manager.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,6 +24,8 @@ public class Accessoire implements Serializable {
     private String type;
 
 //  Map accessoire to vehicule
+    @JsonBackReference
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="vehicule_id", nullable=false)
     private Vehicule vehicule;

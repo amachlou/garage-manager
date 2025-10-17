@@ -1,15 +1,14 @@
 package com.amachlou.garages_manager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.time.DayOfWeek;
-import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 @Data
@@ -28,20 +27,13 @@ public class Garage implements Serializable {
     private String email;
     private String ville;
 
-
 //  Map garage to vehicule
+    @JsonManagedReference
     @OneToMany(mappedBy="garage", fetch=FetchType.LAZY)
     private Set<Vehicule> vehicules;
 
-//    @ElementCollection
-//    @CollectionTable(name = "garage_opening_hours", joinColumns = @JoinColumn(name = "garage_id"))
-//    @MapKeyColumn(name = "day_of_week")
-//    @MapKeyEnumerated(EnumType.STRING)
-//    @Column(name = "opening_time")
-//    private Map<DayOfWeek, List<OpeningTime>> horairesOuverture = new EnumMap<>(DayOfWeek.class);
-
-    // Map Garare with embedded Openning times
-//    public Map<DayOfWeek, List<OpeningTime>> getHorairesOuverture() { return horairesOuverture; }
-//    public void setHorairesOuverture(Map<DayOfWeek, List<OpeningTime>> horairesOuverture) { this.horairesOuverture = horairesOuverture; }
+    @JsonIgnore
+    @OneToMany(mappedBy = "garage", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OpeningHour> openingHours;
 
 }
