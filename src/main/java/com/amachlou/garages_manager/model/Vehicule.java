@@ -1,6 +1,7 @@
 package com.amachlou.garages_manager.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.Year;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -29,15 +31,15 @@ public class Vehicule implements Serializable {
     private String fuelType;
 
 //  Map vehicule to garage
-    @JsonBackReference
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="garage_id", nullable=false)
     private Garage garage;
 
 //  Map vehicule accessoire
-    @JsonManagedReference
+    @JsonIgnore
     @OneToMany(mappedBy="vehicule", fetch=FetchType.LAZY)
-    private Set<Accessoire> accessoires;
+    private List<Accessoire> accessoires;
 
 
 }
