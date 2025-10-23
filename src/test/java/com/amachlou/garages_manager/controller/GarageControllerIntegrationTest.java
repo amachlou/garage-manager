@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Map;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -106,7 +107,7 @@ class GarageControllerIntegrationTest {
         );
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody().getName()).isEqualTo("Car Center");
+        assertThat(Optional.of(response.getBody()).get().getName()).isEqualTo("Car Center");
 
         Garage updated = garageRepository.findById(saved.getId()).orElseThrow();
         assertThat(updated.getName()).isEqualTo("Car Center");
