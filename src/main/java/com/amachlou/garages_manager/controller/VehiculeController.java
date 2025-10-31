@@ -5,6 +5,7 @@ import com.amachlou.garages_manager.model.Vehicule;
 import com.amachlou.garages_manager.repository.AccessoireRepository;
 import com.amachlou.garages_manager.repository.VehiculeRepository;
 import com.amachlou.garages_manager.service.VehiculeService;
+import com.amachlou.garages_manager.service.kafka.VehiculeProducer;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
@@ -31,6 +32,7 @@ public class VehiculeController {
     private final VehiculeRepository vehiculeRepository;
     private final AccessoireRepository accessoireRepository;
     private final VehiculeService vehiculeService;
+    private final VehiculeProducer vehiculeProducer;
 
     @PostMapping
     public ResponseEntity<Vehicule> createVehicule(@RequestBody Vehicule vehicule) {
@@ -94,6 +96,13 @@ public class VehiculeController {
         }
         vehiculeRepository.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // Vehicule publisher
+    @PostMapping("/publish")
+    public ResponseEntity<String> publish(@RequestBody Vehicule vehicule) {
+        vehiculeProducer.publish(vehicule);
+        return ResponseEntity.ok("Vehicule sent to Kafka");
     }
 
 }

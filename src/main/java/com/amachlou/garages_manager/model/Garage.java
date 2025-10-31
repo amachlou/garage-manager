@@ -27,9 +27,9 @@ public class Garage implements Serializable {
     private String ville;
 
 //  Map garage to vehicule
-    @JsonManagedReference @JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy="garage", fetch=FetchType.LAZY)
-    private Set<Vehicule> vehicules;
+    private List<Vehicule> vehicules;
 
     @JsonIgnore
     @OneToMany(mappedBy = "garage", cascade = CascadeType.ALL, orphanRemoval = true)

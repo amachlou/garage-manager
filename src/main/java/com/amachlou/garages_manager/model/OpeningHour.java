@@ -1,5 +1,6 @@
 package com.amachlou.garages_manager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +30,7 @@ public class OpeningHour implements Serializable {
     @Enumerated(EnumType.STRING)
     private DayOfWeek dayOfWeek;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "openingHour", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OpeningTime> openingTimes;
 
